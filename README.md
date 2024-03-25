@@ -1,4 +1,4 @@
-#AlgorithmStudy
+# AlgorithmStudy
 목표는 여름전까지 바킹독 문제집을 모두 극복하는것입니다
 
 중간,기말고사 각 2주씩 제외하고 7월이 되기 전까지 
