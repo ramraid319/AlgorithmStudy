@@ -1,58 +1,48 @@
 #include <iostream>
+#include <list>
+#include <string>
 
 using namespace std;
 
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
-    char in[100000], out[600000], tmp;
-    int c, cursor, size;
-    char cmd[500000];
-
-    for (int i = 0; i < 100001; i++)
+    
+    list<char> a, cmd;
+    int c;
+    char tmp;
+    for (size_t i = 0; i < 100001; i++)
     {
         cin.get(tmp);
-        if (tmp == '\n') break;
-        else
-        {
-            in[i] = tmp;
-            size++;
-        }
+        if(tmp=='\n') break;
+        a.push_back(tmp);
     }
-    cursor = size;
     cin >> c;
     for (size_t i = 0; i < c; i++)
     {
-        cin >> cmd[i];
-        if(cmd[i]=='P')
-        {
-            // cursor++;
-            size++;
-            for (int j = cursor; j < size; j++)
-            {
-                in[j+1]=in[j];
-            }
-
-            cin >> in[cursor++];
-        }
-        else if(cmd[i]=='L'&&cursor>0)cursor--;
-        else if(cmd[i]=='D'&&cursor<size)cursor++;
-        else if(cmd[i]=='B')
-        {
-            cursor--;
-            size--;
-            for (int j = cursor; j < size; j++)
-            {
-                in[j]=in[j+1];
-            }
-        }
-
-
+        cin >> tmp;
+        if(tmp == 'P') c++;
+        cmd.push_back(tmp);
     }
-    for (int i = 0; i < size; i++)
+    auto cursor = a.end();
+    for (auto it = cmd.begin(); it != cmd.end(); it++)
     {
-        cout << in[i];
+
+        if(*it=='P')
+        {
+            it++;
+            a.insert(it, *it);
+            cursor++;
+        }
+        else if(*it=='L'&&cursor!=a.begin()) cursor--;
+        else if(*it=='D'&&cursor!=a.end()) cursor++;
+        else if(*it=='B')
+        {
+            a.erase(cursor--);
+        }
     }
-
-
+    for(auto it:a) cout << it;
+    cout << endl;
+    for(auto it:cmd) cout << it;
+    return 0;
 }
