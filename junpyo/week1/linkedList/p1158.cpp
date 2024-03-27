@@ -1,47 +1,37 @@
 #include <iostream>
 #include <list>
-#include <string>
 
 using namespace std;
 
-int main() {
+int main()
+{
     ios::sync_with_stdio(0);
     cin.tie(0);
-    
-    string init;
-    list<char> a;
-    int o;
-    
-    cin >> init;
-    cin >> o;
-    for(auto it: init) a.push_back(it);
-    auto cursor = a.end();
-    while (o--)
+
+    int n, k;
+    list<int> L;
+    cin >> n >> k;
+    for (int i = 1; i <= n; i++)
     {
-        char op;
-        cin >> op;
-        if (op=='L')
-        {
-            if(cursor!=a.begin()) cursor--;
-        }
-        else if(op=='D')
-        {
-            if(cursor!=a.end()) cursor++;
-        }
-        else if(op=='B')
-        {
-            if(cursor!=a.begin())
-            {   cursor--;
-                cursor = a.erase(cursor);
-            }
-        }
-        else if(op=='P')
-        {
-            char tmp;
-            cin >> tmp;
-            a.insert(cursor, tmp);
-        }
+        L.push_back(i);
     }
-    for(auto it: a) cout << it;
+    auto it = L.begin();
+    cout << "<";
+    while (!L.empty())
+    {
+        for (int i = 1; i < k; i++)
+        {
+            it++;
+            if (it == L.end())
+                it = L.begin();
+        }
+        cout << *it;
+        it = L.erase(it);
+        if (!L.empty())
+            cout << ", ";
+        if (it == L.end())
+            it = L.begin();
+    }
+    cout << ">";
     return 0;
 }
