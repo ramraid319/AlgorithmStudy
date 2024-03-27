@@ -8,41 +8,40 @@ int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     
-    list<char> a, cmd;
-    int c;
-    char tmp;
-    for (size_t i = 0; i < 100001; i++)
-    {
-        cin.get(tmp);
-        if(tmp=='\n') break;
-        a.push_back(tmp);
-    }
-    cin >> c;
-    for (size_t i = 0; i < c; i++)
-    {
-        cin >> tmp;
-        if(tmp == 'P') c++;
-        cmd.push_back(tmp);
-    }
+    string init;
+    list<char> a;
+    int o;
+    
+    cin >> init;
+    cin >> o;
+    for(auto it: init) a.push_back(it);
     auto cursor = a.end();
-    for (auto it = cmd.begin(); it != cmd.end(); it++)
+    while (o--)
     {
-
-        if(*it=='P')
+        char op;
+        cin >> op;
+        if (op=='L')
         {
-            it++;
-            a.insert(it, *it);
-            cursor++;
+            if(cursor!=a.begin()) cursor--;
         }
-        else if(*it=='L'&&cursor!=a.begin()) cursor--;
-        else if(*it=='D'&&cursor!=a.end()) cursor++;
-        else if(*it=='B')
+        else if(op=='D')
         {
-            a.erase(cursor--);
+            if(cursor!=a.end()) cursor++;
+        }
+        else if(op=='B')
+        {
+            if(cursor!=a.begin())
+            {   cursor--;
+                cursor = a.erase(cursor);
+            }
+        }
+        else if(op=='P')
+        {
+            char tmp;
+            cin >> tmp;
+            a.insert(cursor, tmp);
         }
     }
-    for(auto it:a) cout << it;
-    cout << endl;
-    for(auto it:cmd) cout << it;
+    for(auto it: a) cout << it;
     return 0;
 }
