@@ -16,19 +16,28 @@ int main() {
         string tmp;
         list<char> L;
         cin >> tmp;
-        auto cursor = tmp.end();
+        auto cursor = L.end();
         for(auto it:tmp) {
-            if(it=='<') if(cursor!=L.begin())cursor--;
-            else if(it=='>') if(cursor!=L.end())cursor++;
-            else if(it=='-') if(cursor!=L.begin())
+            if(it=='<')
             {
-                L.erase(--cursor);
+                if(cursor!=L.begin())cursor--;
             }
-            else cursor = L.insert(cursor, it);
+            else if(it=='>')
+            {
+                if(cursor!=L.end())cursor++;
+            }
+            else if(it=='-')
+            {
+                if(cursor!=L.begin())
+                {
+                    cursor--;
+                    cursor = L.erase(cursor);
+                }
+            }
+            else L.insert(cursor, it);
         }
         for(auto it: L) cout << it;
+        cout << endl;
     }
-    
-
     return 0;
 }

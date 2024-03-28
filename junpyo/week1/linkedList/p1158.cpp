@@ -1,48 +1,37 @@
 #include <iostream>
 #include <list>
-#include <string>
 
 using namespace std;
 
-int main() {
+int main()
+{
     ios::sync_with_stdio(0);
     cin.tie(0);
-    
-    list<char> a, cmd;
-    int c;
-    char tmp;
-    for (size_t i = 0; i < 100001; i++)
-    {
-        cin.get(tmp);
-        if(tmp=='\n') break;
-        a.push_back(tmp);
-    }
-    cin >> c;
-    for (size_t i = 0; i < c; i++)
-    {
-        cin >> tmp;
-        if(tmp == 'P') c++;
-        cmd.push_back(tmp);
-    }
-    auto cursor = a.end();
-    for (auto it = cmd.begin(); it != cmd.end(); it++)
-    {
 
-        if(*it=='P')
+    int n, k;
+    list<int> L;
+    cin >> n >> k;
+    for (int i = 1; i <= n; i++)
+    {
+        L.push_back(i);
+    }
+    auto it = L.begin();
+    cout << "<";
+    while (!L.empty())
+    {
+        for (int i = 1; i < k; i++)
         {
             it++;
-            a.insert(it, *it);
-            cursor++;
+            if (it == L.end())
+                it = L.begin();
         }
-        else if(*it=='L'&&cursor!=a.begin()) cursor--;
-        else if(*it=='D'&&cursor!=a.end()) cursor++;
-        else if(*it=='B')
-        {
-            a.erase(cursor--);
-        }
+        cout << *it;
+        it = L.erase(it);
+        if (!L.empty())
+            cout << ", ";
+        if (it == L.end())
+            it = L.begin();
     }
-    for(auto it:a) cout << it;
-    cout << endl;
-    for(auto it:cmd) cout << it;
+    cout << ">";
     return 0;
 }
