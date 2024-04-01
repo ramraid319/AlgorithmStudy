@@ -2,27 +2,36 @@
 #include <stack>
 using namespace std;
 
-int main(void) {
-  ios::sync_with_stdio(0);
-  cin.tie(0);
-  int n;
-  cin >> n;
-  stack<int> S;
-  int cnt = 1;
-  string ans;
-  while (n--) {
-    int t;
-    cin >> t;
-    while (cnt <= t) {
-      S.push(cnt++);
-      ans += "+\n";
+int main()
+{
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+
+    int n=0, idx=1;
+    stack<int> s;
+    string res;
+
+    cin >> n;
+    
+    while (n--)
+    {
+        int tmp;
+        cin >> tmp;
+        while (idx <= tmp)
+        {
+            s.push(idx++);
+            res.push_back('+');
+        }
+        if(s.top()>tmp)
+        {
+            cout << "NO";
+            return 0;
+        }
+        s.pop();
+        res.push_back('-');
     }
-    if (S.top() != t) {
-      cout << "NO\n";
-      return 0;
-    }
-    S.pop();
-    ans += "-\n";
-  }
-  cout << ans;
+
+    for(auto it: res) cout << it << endl;
+
+    return 0;
 }
