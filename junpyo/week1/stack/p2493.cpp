@@ -1,6 +1,5 @@
 #include <iostream>
 #include <stack>
-#include <algorithm>
 using namespace std;
 
 int main()
@@ -8,28 +7,21 @@ int main()
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    int n, tmp, size=0;
-    stack<int> S,T;
+    int n, tmp, idx=1;
+    stack<pair<int, int>> S;
     cin >> n;
-    int* res = new int[n];
-    for(int i=0; i<n; i++) res[i]=0;
-    for(int i=0; i<n; i++) {int t; cin >> t; S.push(t);}
-    T=S;
-    while (!S.empty())
+    S.push({100000001, 0});
+    for (int i=1; i<=n; i++)
     {
-        T=S;
-        tmp = T.top();
-        T.pop();
-        int idx = T.size();
-        while (T.top()<tmp)
-        {
-            if(T.size()!=0) { idx=T.size(); T.pop(); }
-            else break;
-        }
-        res[T.size()] = idx;
-        S.pop();
-    }
-    for(int i=0; i<n; i++) {cout << res[i] << " ";}    
+        int h;
+        cin >> h;
 
+        while (S.top().first < h)
+        {
+            S.pop();
+        }
+        cout << S.top().second << " ";
+        S.push({h,i});
+    }
     return 0;
 }
